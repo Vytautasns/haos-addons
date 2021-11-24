@@ -30,6 +30,8 @@ cleanup()
     $CF_CLI tunnel delete $CF_TUNNEL
 }
 
+export TUNNEL_ORIGIN_CERT="$CF_CERT"
+
 if [ -f "$CF_CLI" ]; then
     echo "$($CF_CLI --version)"
 else
@@ -51,13 +53,14 @@ fi
 
 if [ ! -f "$CF_CERT" ]; then
     if [ ! "$CF_CERT_CONTENTS" = "Certificate contents" ]; then
-        echo "Copying certificate from options."
-        echo -e "$CF_CERT_CONTENTS" >> $CF_CERT
+        if [ ! -z "$CF_CERT_CONTENTS" ]; then
+            echo "Copying certificate from options."
+            echo -e "$CF_CERT_CONTENTS" >> $CF_CERT
+        fi
     else
         echo "Missing certificate."
         login
     fi
-    export TUNNEL_ORIGIN_CERT=/data/cert.pem
 fi
 
 if [ ! -f "$CF_TUNNEL_SECRET" ]; then
