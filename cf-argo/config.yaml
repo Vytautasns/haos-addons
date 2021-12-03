@@ -1,0 +1,22 @@
+---
+name: CF Argo Tunnel
+version: 0.1.0
+slug: cf_argo_tunnel
+description: Opens secure tunnel for the Home Assistant. Configure addon before initial start. Check logs for more info.
+arch:
+- armhf
+- armv7
+- aarch64
+- amd64
+- i386
+url: https://github.com/Vytautasns/haos-addons/tree/master/cf-argo
+startup: application
+boot: auto
+options:
+  domain: "homeassistant.domain.com"
+  ha_url: "http://homeassistant:8123"
+  certificate: ""
+schema:
+  domain: "str"
+  ha_url: "str"
+  certificate: "str?"
